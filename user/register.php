@@ -9,7 +9,7 @@ if (isset($_POST['register'])) {
   $email = $_POST['email'];
   $password_1 = $_POST['password_1'];
   $password_2 = $_POST['password_2'];
-
+  $code = uniqid();
   $errors = array();
 
   if (empty($username)) {
@@ -46,13 +46,15 @@ if (isset($_POST['register'])) {
   }
 
   if (count($errors) == 0) {
+    
     $password = md5($password_1);
-    $query = "INSERT INTO users VALUES(NULL , :username, :email, :password,  NOW())";
+    $query = "INSERT INTO users VALUES(NULL , :username, :email, :password,  NOW(), ' ' )";
     $data = $pdo->prepare($query);
     $data->execute([
       'username' => $username,
       'email' => $email,
-      'password' =>$password
+      'password' =>  $password
+
     ]);
 
     $successMessage = "You sucessfully registered. You can log in now. <a href='/user/login.php'>Log In</a>";

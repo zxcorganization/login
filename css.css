@@ -72,8 +72,8 @@ footer{
         padding: 5px;
         text-align: left;
     }
-    .form-control{
-    width: 80px;
+    #perPageSelect{
+    width: 180px;
     height: 25px;
     padding: 0PX 0PX 0PX 5PX;
     }
@@ -90,3 +90,9 @@ footer{
  .btn_create{
  	float: right;
  }
+ .resetpassword{
+	margin-left: 420px;
+}
+ .resetpassword2{
+	margin-left: 450px;
+}

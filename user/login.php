@@ -24,6 +24,7 @@ try
         header("location:../index.php");  
       } else {  
         $message = 'Username OR Password is wrong';  
+
       }  
     }  
   }  
@@ -62,6 +63,7 @@ try
     <label for="password">Password:</label>
     <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
   </div>
+  <a href="http://login/sendcode.php">Forgot password</a>
   <div class="checkbox">
     <label><input type="checkbox" name="remember"> Remember me</label>
   </div>
