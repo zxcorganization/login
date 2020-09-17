@@ -53,14 +53,7 @@ $('#action').click(function(){
   const description = $('#description').val();
   const id = $('#customer_id').val();
   const category_ids = $('#category').val();
-  console.log(category_ids);
 
-
-  
-
-
-
-  
   if(name != ''){  
     if (description != '') {
       if (category_ids != '') {
