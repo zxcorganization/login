@@ -2,8 +2,19 @@
 <?php  require('header.php');?>
 <link rel="stylesheet" type="text/css" href="https://pagination.js.org/dist/2.1.5/pagination.css">
 <?php require('configuration/db-connection.php'); ?>
+
+<?php
+$sql="select name,description,created_at from products";
+$stmt=$pdo->prepare($sql);
+$stmt->execute();
+$data=$stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <script type="text/javascript" src="panigation.js"></script> 
 <script type="text/javascript" src="product.js"></script> 
+<div class="loader-wrapper">
+      <span class="loader"><span class="loader-inner"></span></span>
+    </div>
 <link rel="stylesheet" type="text/css" href="css.css">
 <?php if (isset ($_SESSION["username"])): ?>
   <div class="hello_user">
@@ -16,17 +27,20 @@
     </a>
   </div>
 </div> 
-
+<div class="form-group">
+  <input type="text" name="search" id="search" placeholder="Search.." onkeyup="getProducts()">
+</div>
 <select onchange="getProducts()"
-  id="perPageSelect"
- 
-  class="form-control"
-  >
-  <option value="5">5</option>
-  <option value="15">15</option>
-  <option value="25">25</option>
-  <option value="50">50</option>
+id="perPageSelect"
+
+class="form-control"
+>
+<option value="5">5</option>
+<option value="15">15</option>
+<option value="25">25</option>
+<option value="50">50</option>
 </select>
+
 <div id="result"></div>
 <a href="product/createproduct.php"  class="btn btn-default btn_create">Create</a>
 </div>
@@ -86,6 +100,11 @@
  </button>;  
 <?php endif; ?> 
 <?php  require('footer.php');?>
+<script type="text/javascript">
+  
+
+
+</script>
 
 
 

@@ -7,9 +7,11 @@ function onPaginationChange(eventData, pageNumber) {
 
  function getProducts() {
   let perPage =  $('#perPageSelect').val();
+  let search=$('#search').val();
   $.ajax({
    url : "product/getProducts.php?page="+page+"&perPage=" + perPage, 
    method:"POST", 
+   data:'search='+search,
    success:function(data){
      const response = JSON.parse(data);
      const totalRows = parseInt(response.totalRows);
@@ -42,7 +44,9 @@ function onPaginationChange(eventData, pageNumber) {
    }
  });
 }
- 
+  $(window).on("load",function(){
+          $(".loader-wrapper").fadeOut("slow");
+        });
 
 $(document).ready(function(){
  getProducts(); 
@@ -128,6 +132,8 @@ $(document).on('click', '.delete', function(){
    return false;
  }
 });
+
+
 
 
 

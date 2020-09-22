@@ -7,21 +7,24 @@ if(isset($_SESSION["username"])) {
 
 	$limit = ($perPage && $page) ? 
 	' LIMIT ' . $perPage . ' OFFSET ' . ($page - 1) * $perPage  :
-	 '';
+	'';
 
 	$userId = $_SESSION['id'];
 
-	$statement = $pdo->prepare("SELECT * FROM products where user_id = :userId" . $limit);
-	$statement->execute(compact('userId'));
-	$statement->setFetchMode(PDO::FETCH_ASSOC);
-	
 	$statement2 = $pdo->prepare("SELECT count(*) FROM products where user_id = :userId");
 	$statement2->execute(compact('userId'));
 
-	$products = $statement->fetchAll();
 	$totalRows = $statement2->fetchColumn();
 	
-	echo json_encode(compact('products', 'totalRows'));
+	$search=$_POST['search'];
+
+	$statement = $pdo->prepare("SELECT * FROM products where name like '%$search%' or description like '%$search%' AND user_id = :userId" . $limit);
+	$statement->execute(compact('userId'));
+	$statement->setFetchMode(PDO::FETCH_ASSOC);
+	$products = $statement->fetchAll();
+
+	echo json_encode(compact('products', 'totalRows' ));
+	
 }else {
 	header("HTTP/1.1 401 Unauthorized");
 	echo 'залогинся1';
