@@ -3,18 +3,15 @@
 <link rel="stylesheet" type="text/css" href="https://pagination.js.org/dist/2.1.5/pagination.css">
 <?php require('configuration/db-connection.php'); ?>
 
-<?php
-$sql="select name,description,created_at from products";
-$stmt=$pdo->prepare($sql);
-$stmt->execute();
-$data=$stmt->fetchAll(PDO::FETCH_ASSOC);
+<?php 
+$statement = $pdo->prepare("SELECT * FROM categories");
+$statement->execute();
+$categories = $statement->fetchAll();
 ?>
 
 <script type="text/javascript" src="panigation.js"></script> 
 <script type="text/javascript" src="product.js"></script> 
-<div class="loader-wrapper">
-      <span class="loader"><span class="loader-inner"></span></span>
-    </div>
+
 <link rel="stylesheet" type="text/css" href="css.css">
 <?php if (isset ($_SESSION["username"])): ?>
   <div class="hello_user">
@@ -40,6 +37,28 @@ class="form-control"
 <option value="25">25</option>
 <option value="50">50</option>
 </select>
+
+
+
+
+
+
+
+<select onchange="getProducts()" id="category_id"  class="form-control">
+<option value="0">All</option>
+<? foreach($categories as $category ): ?>
+
+  <option  value="<?php echo $category['id']; ?>"><? echo $category["name"]; ?></option>
+
+<? endforeach; ?>
+
+</select>
+
+
+
+
+
+
 
 <div id="result"></div>
 <a href="product/createproduct.php"  class="btn btn-default btn_create">Create</a>

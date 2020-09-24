@@ -7,11 +7,15 @@ function onPaginationChange(eventData, pageNumber) {
 
  function getProducts() {
   let perPage =  $('#perPageSelect').val();
+  let category_id =  $('#category_id').val();
+
   let search=$('#search').val();
   $.ajax({
-   url : "product/getProducts.php?page="+page+"&perPage=" + perPage, 
-   method:"POST", 
-   data:'search='+search,
+
+   url : "product/getProducts.php?page="+page+"&perPage=" +  perPage + (category_id === "0" ? '': "&category_id=" +category_id) + (search == '' ? '': "&search=" +search)  , 
+   method:"GET", 
+
+
    success:function(data){
      const response = JSON.parse(data);
      const totalRows = parseInt(response.totalRows);
@@ -29,6 +33,7 @@ function onPaginationChange(eventData, pageNumber) {
       '</tr>';
 
     });
+
      $('#tableBody').html(html);
 
      if (totalRows) {
@@ -44,9 +49,7 @@ function onPaginationChange(eventData, pageNumber) {
    }
  });
 }
-  $(window).on("load",function(){
-          $(".loader-wrapper").fadeOut("slow");
-        });
+  
 
 $(document).ready(function(){
  getProducts(); 
